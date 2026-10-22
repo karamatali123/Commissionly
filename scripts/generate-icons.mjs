@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import zlib from "node:zlib";
 
+// The live favicon is public/icon.svg plus the PNGs exported from it.
+// This painter is the older plain-C generator and is not the current mark.
+console.error("Skipped. Favicon files are exported from public/icon.svg.");
+process.exit(0);
+
 const crcTable = new Uint32Array(256);
 for (let n = 0; n < 256; n += 1) {
   let c = n;

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { InfoPage } from "@/components/InfoPage";
+import { JsonLd } from "@/components/JsonLd";
 import { CATEGORIES, getInfoPage, publishedKeywords } from "@/data/keywords";
-import { pageMetadata } from "@/lib/seo";
+import { calculatorListSchema, pageMetadata } from "@/lib/seo";
 
 const page = getInfoPage("calculators");
 
@@ -21,20 +22,20 @@ export default function CalculatorsIndexPage() {
       </p>
       <ul className="grid gap-4 sm:grid-cols-3">
         <li>
-          <Link href="/" className="block overflow-hidden rounded-2xl border border-line">
-            <Image src="/images/desk.jpg" alt="" width={1200} height={675} className="h-32 w-full object-cover" />
+          <Link href="/" className="media-card block overflow-hidden rounded-2xl border border-line">
+            <Image src="/images/desk.jpg" alt="A cream desk with a worksheet, a green pen, coins, and a house key." width={1200} height={675} className="h-32 w-full object-cover" />
             <span className="block px-3 py-2 font-semibold">Commission</span>
           </Link>
         </li>
         <li>
-          <Link href="/real-estate-commission-calculator/" className="block overflow-hidden rounded-2xl border border-line">
-            <Image src="/images/real-estate.jpg" alt="" width={960} height={720} className="h-32 w-full object-cover" />
+          <Link href="/real-estate-commission-calculator/" className="media-card block overflow-hidden rounded-2xl border border-line">
+            <Image src="/images/real-estate.jpg" alt="A forest-green front door with a brass key on an envelope." width={960} height={720} className="h-32 w-full object-cover" />
             <span className="block px-3 py-2 font-semibold">Real estate</span>
           </Link>
         </li>
         <li>
-          <Link href="/sales-commission-calculator/" className="block overflow-hidden rounded-2xl border border-line">
-            <Image src="/images/sales.jpg" alt="" width={960} height={720} className="h-32 w-full object-cover" />
+          <Link href="/sales-commission-calculator/" className="media-card block overflow-hidden rounded-2xl border border-line">
+            <Image src="/images/sales.jpg" alt="An open notebook with a rising green bar chart beside a cup of coffee." width={960} height={720} className="h-32 w-full object-cover" />
             <span className="block px-3 py-2 font-semibold">Sales</span>
           </Link>
         </li>
@@ -54,6 +55,7 @@ export default function CalculatorsIndexPage() {
           </ul>
         </section>
       ))}
+    <JsonLd data={calculatorListSchema(publishedKeywords().map((item) => ({ name: item.h1, path: item.path })))} />
     </InfoPage>
   );
 }

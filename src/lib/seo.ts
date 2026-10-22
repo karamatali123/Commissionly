@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GSC_VERIFICATION, SITE_NAME, absoluteUrl } from "@/lib/site";
+import { GSC_VERIFICATION, LAST_UPDATED_ISO, SITE_NAME, absoluteUrl } from "@/lib/site";
 
 export interface SeoFields {
   title: string;
@@ -39,14 +39,19 @@ export function organizationSchema() {
     "@graph": [
       {
         "@type": "Organization",
+        "@id": absoluteUrl("/#organization"),
         name: SITE_NAME,
         url: absoluteUrl("/"),
         logo: absoluteUrl("/icon-512.png"),
+        description: "Free commission calculators for sales, real estate, insurance, and related pay plans.",
       },
       {
         "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
         name: SITE_NAME,
         url: absoluteUrl("/"),
+        inLanguage: "en-US",
+        publisher: { "@id": absoluteUrl("/#organization") },
       },
     ],
   };
@@ -89,11 +94,31 @@ export function appSchema(page: { h1: string; description: string; path: string 
     description: page.description,
     applicationCategory: "FinanceApplication",
     operatingSystem: "Any",
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
+    dateModified: LAST_UPDATED_ISO,
+    publisher: { "@id": absoluteUrl("/#organization") },
+    isPartOf: { "@id": absoluteUrl("/#website") },
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
     },
+  };
+}
+
+export function calculatorListSchema(pages: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Commission calculators",
+    numberOfItems: pages.length,
+    itemListElement: pages.map((page, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: page.name,
+      url: absoluteUrl(page.path),
+    })),
   };
 }
 
@@ -106,6 +131,7 @@ export function rootMetadata(): Metadata {
     category: "finance",
     icons: {
       icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
         { url: "/favicon.ico", sizes: "32x32" },
         { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       ],

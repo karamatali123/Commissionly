@@ -139,3 +139,66 @@ summary {
 summary::-webkit-details-marker {
   display: none;
 }
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.calc-enter {
+  animation: rise 420ms ease-out;
+}
+
+.result-value {
+  animation: rise 200ms ease-out;
+}
+
+.nav-check:checked ~ .site-nav {
+  animation: rise 180ms ease-out;
+}
+
+details[open] > .nav-panel {
+  animation: rise 160ms ease-out;
+}
+
+button,
+.media-card,
+summary {
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.media-card img {
+  transition: transform 280ms ease;
+}
+
+.media-card:hover img,
+.media-card:focus-visible img {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -34,7 +34,9 @@ export function ResultPanel({
     <div className="flex h-full flex-col">
       <div tabIndex={-1} data-result className="rounded-xl bg-accent-soft p-4 outline-none" aria-live="polite">
         <p className="text-sm font-medium text-muted">{label}</p>
-        <p className="mt-1 text-4xl font-semibold tracking-tight text-result tabular-nums">{value}</p>
+        <p key={value} className="result-value mt-1 text-4xl font-semibold tracking-tight text-result tabular-nums">
+          {value}
+        </p>
         {note ? <p className="mt-2 text-sm leading-6">{note}</p> : null}
       </div>
       {rows.length > 0 ? (
@@ -73,7 +75,7 @@ export function ResultPanel({
           Copy link
         </button>
       </div>
-      {copyState === "done" ? <p className="mt-2 text-sm">Link copied.</p> : null}
+      {copyState === "done" ? <p className="result-value mt-2 text-sm">Link copied.</p> : null}
       {copyState === "failed" ? (
         <p className="mt-2 text-sm text-danger" role="alert">
           Copy failed. Select the address bar and copy it manually.
@@ -94,7 +96,7 @@ export function CalculatorFrame({
 }) {
   return (
     <form
-      className="mt-6 overflow-hidden rounded-2xl border border-line bg-surface shadow-[var(--shadow)]"
+      className="calc-enter mt-6 overflow-hidden rounded-2xl border border-line bg-surface shadow-[var(--shadow)]"
       onSubmit={(event) => {
         event.preventDefault();
         onSubmit();
