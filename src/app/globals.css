@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --surface: #fffcf8;
+  --ink: #1c1915;
+  --muted: #4e483f;
+  --line: #e3dcd0;
+  --accent: #0c6b52;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5f4ee;
+  --result: #08382c;
+  --danger: #8c2f0e;
+  --focus: #0c6b52;
+  --shadow: 0 1px 2px rgb(28 25 21 / 6%), 0 12px 32px rgb(28 25 21 / 5%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #101510;
+    --surface: #18211b;
+    --ink: #f4f1ea;
+    --muted: #c9c2b6;
+    --line: #314036;
+    --accent: #3dbe98;
+    --accent-ink: #06281d;
+    --accent-soft: #143028;
+    --result: #d8f6ea;
+    --danger: #ffb4a2;
+    --focus: #7ddec0;
+    --shadow: 0 1px 2px rgb(0 0 0 / 35%);
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-result: var(--result);
+  --color-danger: var(--danger);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 50;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.nav-check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.site-nav {
+  display: none;
+}
+
+.nav-check:checked ~ .site-nav {
+  display: grid;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+}
+
+.nav-check:focus-visible + .site-bar .menu-button {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .site-nav,
+  .nav-check:checked ~ .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-bottom: 0;
+  }
+
+  .nav-details {
+    position: relative;
+  }
+
+  .nav-panel {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0;
+    z-index: 20;
+    min-width: 16rem;
+  }
+}
+
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
