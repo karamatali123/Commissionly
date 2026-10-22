@@ -5,10 +5,10 @@
       "has": [
         {
           "type": "host",
-          "value": "www.commissionly.cc"
+          "value": "commissionly.cc"
         }
       ],
-      "destination": "https://commissionly.cc/:path*",
+      "destination": "https://www.commissionly.cc/:path*",
       "permanent": true
     }
   ]

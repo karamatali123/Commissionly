@@ -24,9 +24,15 @@ try {
 
 const usable = host && !host.startsWith("localhost") && !host.startsWith("127.0.0.1");
 const apex = host.replace(/^www\./, "");
+const alternate = host.startsWith("www.") ? apex : `www.${apex}`;
 const redirects = usable
   ? [
-      { source: "/:path*", has: [{ type: "host", value: `www.${apex}` }], destination: `https://${apex}/:path*`, permanent: true },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: alternate }],
+        destination: `https://${host}/:path*`,
+        permanent: true,
+      },
     ]
   : [];
 
@@ -37,9 +43,9 @@ fs.writeFileSync(
 
 const netlify = usable
   ? [
-      `http://${apex}/* https://${apex}/:splat 301`,
-      `http://www.${apex}/* https://${apex}/:splat 301`,
-      `https://www.${apex}/* https://${apex}/:splat 301`,
+      `http://${apex}/* https://${host}/:splat 301`,
+      `http://www.${apex}/* https://${host}/:splat 301`,
+      `https://${alternate}/* https://${host}/:splat 301`,
       "",
     ].join("\n")
   : "# Set NEXT_PUBLIC_SITE_URL to a public https origin to generate www and http redirects.\n";

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { NavDismiss } from "@/components/NavDismiss";
 import { headerLinks } from "@/data/keywords";
 import { SITE_NAME } from "@/lib/site";
 
@@ -9,6 +10,7 @@ export function SiteHeader() {
   const insurance = headerLinks("insurance");
   return (
     <header className="border-b border-line bg-surface">
+      <NavDismiss />
       <a href="#content" className="skip-link">
         Skip to content
       </a>
@@ -27,7 +29,7 @@ export function SiteHeader() {
           <Link href="/" className="inline-flex min-h-11 items-center rounded-lg px-3">
             Home
           </Link>
-          <details className="nav-details">
+          <details className="nav-details" name="site-menu">
             <summary className="inline-flex min-h-11 cursor-pointer items-center rounded-lg px-3">Real estate</summary>
             <div className="nav-panel rounded-xl border border-line bg-surface p-2 shadow-sm">
               {realEstate.map((page) => (
@@ -37,7 +39,7 @@ export function SiteHeader() {
               ))}
             </div>
           </details>
-          <details className="nav-details">
+          <details className="nav-details" name="site-menu">
             <summary className="inline-flex min-h-11 cursor-pointer items-center rounded-lg px-3">Sales</summary>
             <div className="nav-panel rounded-xl border border-line bg-surface p-2 shadow-sm">
               {sales.map((page) => (
@@ -48,7 +50,7 @@ export function SiteHeader() {
             </div>
           </details>
           {insurance.length > 0 ? (
-            <details className="nav-details">
+            <details className="nav-details" name="site-menu">
               <summary className="inline-flex min-h-11 cursor-pointer items-center rounded-lg px-3">Insurance</summary>
               <div className="nav-panel rounded-xl border border-line bg-surface p-2 shadow-sm">
                 {insurance.map((page) => (
